@@ -1,11 +1,11 @@
 {
   "name": "authsentry",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A comprehensive authentication and authorization package for Node.js/Express applications with JWT tokens, refresh tokens, and Role-Based Access Control (RBAC)",
   "main": "index.js",
   "keywords": [
     "authentication",
-    "authorization", 
+    "authorization",
     "jwt",
     "rbac",
     "express",
@@ -49,7 +49,7 @@
   },
   "files": [
     "index.js",
-    "auth.js", 
+    "auth.js",
     "db.js",
     "middleware.js",
     "permissions.js",
