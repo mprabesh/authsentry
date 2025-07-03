@@ -14,9 +14,25 @@ A comprehensive authentication and authorization package for Node.js/Express app
 
 ## 📦 Installation
 
+### From GitHub Packages (Recommended)
+
+1. **Configure npm for GitHub Packages** (create or update `.npmrc` in your project):
+   ```
+   @mprabesh:registry=https://npm.pkg.github.com
+   ```
+
+2. **Install the package:**
+   ```bash
+   npm install @mprabesh/authsentry
+   ```
+
+### From npm Registry
+
 ```bash
 npm install authsentry
 ```
+
+> **Note**: The package is automatically published to GitHub Packages. For the latest versions and automated releases, we recommend using the GitHub Packages installation method.
 
 ## 🔧 Dependencies
 
@@ -518,6 +534,36 @@ When contributing to this package:
 2. **Maintain coverage** above 90%
 3. **Test edge cases** and error conditions
 4. **Run integration tests** with real database operations
+
+## 🚀 CI/CD and Release Process
+
+### Automated Testing
+
+This package uses GitHub Actions for continuous integration:
+
+- **CI Workflow**: Runs on every push and pull request
+  - Tests on Node.js 16, 18, and 20
+  - Security audits
+  - Test coverage reporting
+
+- **Publish Workflow**: Triggered by version tags
+  - Full test suite validation
+  - Automatic publishing to GitHub Packages
+  - GitHub Release creation
+
+### Release Process
+
+1. **Update version**: `npm version [patch|minor|major]`
+2. **Update CHANGELOG.md** with new features and fixes
+3. **Create and push tag**: `git tag -a v1.0.3 -m "Release 1.0.3" && git push origin v1.0.3`
+4. **Monitor workflow**: Check GitHub Actions for successful publication
+
+### Build Status
+
+- [![CI](https://github.com/mprabesh/authsentry/actions/workflows/ci.yml/badge.svg)](https://github.com/mprabesh/authsentry/actions/workflows/ci.yml)
+- [![Publish](https://github.com/mprabesh/authsentry/actions/workflows/publish.yml/badge.svg)](https://github.com/mprabesh/authsentry/actions/workflows/publish.yml)
+
+For detailed information about workflows and publishing, see [.github/workflows/README.md](.github/workflows/README.md).
 
 ## 📝 License
 

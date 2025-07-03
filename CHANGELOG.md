@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- **GitHub Actions Workflows**: Complete CI/CD pipeline
+  - CI workflow for automated testing on push/PR
+  - Publish workflow for automated releases to GitHub Packages
+  - Multi-Node.js version testing (16, 18, 20)
+  - Security audit integration
+  - Test coverage reporting
+  - Automatic GitHub Release creation
+- **GitHub Packages Integration**: Package published as `@mprabesh/authsentry`
+- **Comprehensive Documentation**: Added workflow guides and release process documentation
+
+### Changed
+- **Installation Instructions**: Updated README.md with GitHub Packages installation steps
+- **Repository Metadata**: Updated all references to point to `mprabesh/authsentry`
+
 ## [1.0.2] - 2025-07-03
 
 ### Changed
