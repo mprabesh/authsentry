@@ -22,3 +22,4 @@ tests/
 *.spec.js
 coverage/
 .nyc_output/
+jest.config.js

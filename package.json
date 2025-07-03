@@ -15,7 +15,10 @@
     "mongoose"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:integration": "jest --testPathPattern=integration"
   },
   "author": "Your Name <your.email@example.com>",
   "license": "MIT",
@@ -38,6 +41,12 @@
   "peerDependencies": {
     "express": "^4.18.0"
   },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3",
+    "express": "^4.18.2",
+    "mongodb-memory-server": "^9.1.1"
+  },
   "files": [
     "index.js",
     "auth.js", 
@@ -46,5 +55,16 @@
     "permissions.js",
     "models/",
     "README.md"
-  ]
+  ],
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "*.js",
+      "models/*.js",
+      "!node_modules/**",
+      "!coverage/**"
+    ],
+    "testTimeout": 10000
+  }
 }

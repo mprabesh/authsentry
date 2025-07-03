@@ -466,6 +466,48 @@ app.listen(PORT, () => {
 - **Admin Dashboards** - Permission-based feature access
 - **Mobile Apps** - Token-based authentication for mobile clients
 
+## 🧪 Testing
+
+This package includes comprehensive test coverage to ensure reliability and security.
+
+### Running Tests
+
+```bash
+# Install development dependencies first
+npm install
+
+# Run all tests
+npm test
+
+# Run tests in watch mode during development
+npm run test:watch
+
+# Generate coverage report
+npm run test:coverage
+
+# Run only integration tests
+npm run test:integration
+```
+
+### Test Coverage
+
+The test suite covers:
+- **Authentication Functions** - Password hashing, token generation/verification
+- **Middleware Security** - Request protection and authorization logic
+- **Database Integration** - MongoDB operations and refresh token management
+- **Role/Permission System** - RBAC functionality and customization
+- **Error Handling** - Invalid inputs and edge cases
+- **API Integration** - Complete package usage patterns
+
+### Development
+
+When contributing to this package:
+
+1. **Write tests** for new features
+2. **Maintain coverage** above 90%
+3. **Test edge cases** and error conditions
+4. **Run integration tests** with real database operations
+
 ## 📝 License
 
 ISC
