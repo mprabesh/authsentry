@@ -6,6 +6,12 @@ on:
       - 'v*'  # Triggers on version tags like v1.0.0, v1.0.1, etc.
   workflow_dispatch:  # Allow manual triggering
 
+permissions:
+  contents: write
+  packages: write
+  pull-requests: read
+  id-token: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -43,8 +49,10 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
     
     permissions:
-      contents: read
+      contents: write
       packages: write
+      pull-requests: read
+      id-token: write
     
     steps:
       - name: Checkout code
@@ -108,30 +116,27 @@ jobs:
         if: always()
       
       - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ steps.extract_version.outputs.version }}
-          body: |
-            ## Changes in version ${{ steps.extract_version.outputs.version }}
+        run: |
+          gh release create ${{ github.ref_name }} \
+            --title "Release ${{ steps.extract_version.outputs.version }}" \
+            --notes "## Changes in version ${{ steps.extract_version.outputs.version }}
             
             See [CHANGELOG.md](https://github.com/mprabesh/authsentry/blob/main/CHANGELOG.md) for detailed changes.
             
             ## Installation
             
             ### From GitHub Packages:
-            ```bash
+            \`\`\`bash
             npm install @mprabesh/authsentry
-            ```
+            \`\`\`
             
             ### From npm (if published there):
-            ```bash
+            \`\`\`bash
             npm install authsentry
-            ```
-          draft: false
-          prerelease: false
+            \`\`\`" \
+            --latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   notify:
     needs: [test, publish]
