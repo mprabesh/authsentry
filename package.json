@@ -20,15 +20,15 @@
     "test:coverage": "jest --coverage",
     "test:integration": "jest --testPathPattern=integration"
   },
-  "author": "Your Name <your.email@example.com>",
+  "author": "mprabesh",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/auth-helper-advanced.git"
+    "url": "https://github.com/mprabesh/authsentry.git"
   },
-  "homepage": "https://github.com/yourusername/auth-helper-advanced#readme",
+  "homepage": "https://github.com/mprabesh/authsentry#readme",
   "bugs": {
-    "url": "https://github.com/yourusername/auth-helper-advanced/issues"
+    "url": "https://github.com/mprabesh/authsentry/issues"
   },
   "engines": {
     "node": ">=16.0.0"
