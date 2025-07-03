@@ -1,4 +1,4 @@
-# Auth Helper Advanced
+# AuthSentry
 
 A comprehensive authentication and authorization package for Node.js/Express applications featuring JWT tokens, refresh tokens, and Role-Based Access Control (RBAC).
 
@@ -15,7 +15,7 @@ A comprehensive authentication and authorization package for Node.js/Express app
 ## 📦 Installation
 
 ```bash
-npm install auth-helper-advanced
+npm install authsentry
 ```
 
 ## 🔧 Dependencies
@@ -44,7 +44,7 @@ The following dependencies are automatically installed:
 ### 1. Import the Package
 
 ```javascript
-const authHelper = require('auth-helper-advanced');
+const authHelper = require('authsentry');
 const { 
   connectDB,
   hashPassword, 
@@ -69,7 +69,7 @@ await connectDB('mongodb://localhost:27017/your-app-database');
 
 ```javascript
 const express = require('express');
-const authHelper = require('auth-helper-advanced');
+const authHelper = require('authsentry');
 
 const app = express();
 app.use(express.json());
@@ -128,7 +128,7 @@ The package comes with default roles, but you can customize them for your applic
 
 ```javascript
 // In your application, after importing the package
-const authHelper = require('auth-helper-advanced');
+const authHelper = require('authsentry');
 
 // Access and modify role permissions
 authHelper.rolePermissions.moderator = ['read:user', 'write:user', 'moderate:content'];
