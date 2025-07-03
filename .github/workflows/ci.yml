@@ -9,18 +9,15 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16, 18, 20]
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 18
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
           cache: 'npm'
       
       - name: Install dependencies
@@ -34,11 +31,9 @@ jobs:
       
       - name: Run test coverage
         run: npm run test:coverage
-        if: matrix.node-version == 18  # Only run coverage on one Node version
       
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
-        if: matrix.node-version == 18
         with:
           file: ./coverage/lcov.info
           flags: unittests

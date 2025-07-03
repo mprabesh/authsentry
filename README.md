@@ -542,7 +542,7 @@ When contributing to this package:
 This package uses GitHub Actions for continuous integration:
 
 - **CI Workflow**: Runs on every push and pull request
-  - Tests on Node.js 16, 18, and 20
+  - Tests on Node.js 18 (LTS)
   - Security audits
   - Test coverage reporting
 
