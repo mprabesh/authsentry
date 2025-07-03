@@ -11,7 +11,8 @@ This repository includes two GitHub Actions workflows to automate testing, build
 - Pull requests to `main` or `develop` branches
 
 **What it does:**
-- Tests the package on Node.js versions 16, 18, and 20
+- Tests the package on Node.js versions 18 and 20 (primary support)
+- Tests Node.js 16 compatibility separately (non-blocking)
 - Runs security audits
 - Generates test coverage reports
 - Uploads coverage to Codecov (optional)
@@ -23,7 +24,7 @@ This repository includes two GitHub Actions workflows to automate testing, build
 - Manual workflow dispatch
 
 **What it does:**
-- Runs full test suite on multiple Node.js versions (16, 18, 20)
+- Runs full test suite on Node.js versions 18 and 20
 - Verifies package version matches the git tag
 - Publishes package to GitHub Packages as `@mprabesh/authsentry`
 - Creates a GitHub Release with release notes
@@ -123,11 +124,11 @@ The workflows use these GitHub secrets (automatically available):
 ### Node.js Version Support
 
 The package is tested on:
-- Node.js 16 (minimum supported)
-- Node.js 18 (LTS)
-- Node.js 20 (Current)
+- Node.js 18 (LTS, primary support)
+- Node.js 20 (Current, primary support)
+- Node.js 16 (compatibility testing, may have limitations)
 
-The CI workflows test across all supported versions to ensure compatibility.
+Primary CI testing focuses on Node.js 18 and 20 for optimal compatibility with all dependencies. Node.js 16 compatibility is tested separately in a non-blocking manner due to some modern dependencies requiring Node.js 18+.
 
 ### Package Configuration
 
