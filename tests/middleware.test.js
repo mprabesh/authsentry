@@ -47,7 +47,7 @@ describe('Middleware Functions', () => {
         .set('Authorization', 'Bearer ');
       
       expect(response.status).toBe(401);
-      expect(response.body.error).toBe('Token required');
+      expect(response.body.error).toBe('Bearer token required');
     });
 
     test('should reject request with invalid token', async () => {
@@ -60,7 +60,7 @@ describe('Middleware Functions', () => {
         .set('Authorization', 'Bearer invalid.token.here');
       
       expect(response.status).toBe(403);
-      expect(response.body.error).toBe('Token verification failed');
+      expect(response.body.error).toBe('Invalid token');
     });
 
     test('should accept request with valid token', async () => {

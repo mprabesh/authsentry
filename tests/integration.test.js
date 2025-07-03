@@ -124,8 +124,8 @@ describe('Database Integration Tests', () => {
       const jwt = require('jsonwebtoken');
       const REFRESH_SECRET = process.env.REFRESH_SECRET || 'refresh_secret';
       
-      const token1 = jwt.sign({ id: userId }, REFRESH_SECRET, { expiresIn: '7d' });
-      const token2 = jwt.sign({ id: userId }, REFRESH_SECRET, { expiresIn: '7d' });
+      const token1 = jwt.sign({ id: userId, sessionId: 'session1' }, REFRESH_SECRET, { expiresIn: '7d' });
+      const token2 = jwt.sign({ id: userId, sessionId: 'session2' }, REFRESH_SECRET, { expiresIn: '7d' });
 
       await storeRefreshToken(userId, token1);
       await storeRefreshToken(userId, token2);

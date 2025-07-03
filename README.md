@@ -21,12 +21,23 @@ npm install auth-helper-advanced
 ## 🔧 Dependencies
 
 This package requires the following peer dependencies:
-- `express` - Web framework for Node.js
+- `express` - Web framework for Node.js (v4.18.0 or v5.x.x supported)
 
 The following dependencies are automatically installed:
-- `bcryptjs` - Password hashing and comparison
+- `bcryptjs` v3.x - Password hashing and comparison
 - `jsonwebtoken` - JWT token generation and verification
-- `mongoose` - MongoDB object modeling
+- `mongoose` v8.x - MongoDB object modeling
+
+### Migration Notes
+
+#### bcryptjs v3.0 Update
+- **Hash Format**: Now generates 2b hashes by default (previously 2a)
+- **Backward Compatibility**: Existing 2a hashes continue to work
+- **ES Modules**: The library now exports ES modules with UMD fallback
+- **Breaking Changes**: If you were relying on the exact hash format in tests, you may need to update your test assertions
+
+#### Node.js Version
+- **Minimum Version**: Node.js 16.0.0 or higher (updated from 14.0.0)
 
 ## 🚦 Quick Start
 

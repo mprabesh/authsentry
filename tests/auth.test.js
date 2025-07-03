@@ -79,7 +79,8 @@ describe('Authentication Functions', () => {
     test('should return null for expired token', () => {
       // Mock an expired token by manipulating time
       const oldDate = Date.now;
-      Date.now = jest.fn(() => Date.now() - 24 * 60 * 60 * 1000); // 24 hours ago
+      const pastTime = oldDate() - 24 * 60 * 60 * 1000; // 24 hours ago
+      Date.now = jest.fn(() => pastTime);
       
       const token = generateAccessToken(mockUser);
       
