@@ -1,16 +1,50 @@
 {
-  "name": "auth-package",
+  "name": "auth-helper-advanced",
   "version": "1.0.0",
-  "description": "Reusable RBAC + refresh-token auth package for Node.js/Express apps",
+  "description": "A comprehensive authentication and authorization package for Node.js/Express applications with JWT tokens, refresh tokens, and Role-Based Access Control (RBAC)",
   "main": "index.js",
+  "keywords": [
+    "authentication",
+    "authorization", 
+    "jwt",
+    "rbac",
+    "express",
+    "middleware",
+    "refresh-token",
+    "bcrypt",
+    "mongoose"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/auth-helper-advanced.git"
+  },
+  "homepage": "https://github.com/yourusername/auth-helper-advanced#readme",
+  "bugs": {
+    "url": "https://github.com/yourusername/auth-helper-advanced/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "dependencies": {
-    "bcryptjs": "^3.0.2",
+    "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.16.1"
-  }
+    "mongoose": "^8.0.0"
+  },
+  "peerDependencies": {
+    "express": "^4.18.0"
+  },
+  "files": [
+    "index.js",
+    "auth.js", 
+    "db.js",
+    "middleware.js",
+    "permissions.js",
+    "models/",
+    "README.md"
+  ]
 }

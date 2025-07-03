@@ -1,6 +1,6 @@
-# Auth Package
+# Auth Helper Advanced
 
-A lightweight, reusable authentication and authorization package for Node.js/Express applications featuring JWT tokens, refresh tokens, and Role-Based Access Control (RBAC).
+A comprehensive authentication and authorization package for Node.js/Express applications featuring JWT tokens, refresh tokens, and Role-Based Access Control (RBAC).
 
 ## 🚀 Features
 
@@ -15,117 +15,126 @@ A lightweight, reusable authentication and authorization package for Node.js/Exp
 ## 📦 Installation
 
 ```bash
-npm install
+npm install auth-helper-advanced
 ```
 
 ## 🔧 Dependencies
 
+This package requires the following peer dependencies:
+- `express` - Web framework for Node.js
+
+The following dependencies are automatically installed:
 - `bcryptjs` - Password hashing and comparison
 - `jsonwebtoken` - JWT token generation and verification
 - `mongoose` - MongoDB object modeling
 
-## 🏗️ Project Structure
-
-```
-auth-package/
-├── db.js              # Database connection utilities
-├── auth.js            # Authentication functions
-├── permissions.js     # Role-based permission definitions
-├── middleware.js      # Express middleware functions
-├── models/
-│   └── RefreshToken.js # Refresh token database model
-├── index.js           # Main entry point
-├── package.json       # Package configuration
-└── README.md          # This file
-```
-
 ## 🚦 Quick Start
 
-### 1. Database Connection
+### 1. Import the Package
 
 ```javascript
-const { connectDB } = require('./index');
-
-// Connect to MongoDB
-await connectDB('mongodb://localhost:27017/your-database');
-```
-
-### 2. User Registration & Authentication
-
-```javascript
+const authHelper = require('auth-helper-advanced');
 const { 
+  connectDB,
   hashPassword, 
   comparePassword, 
   generateAccessToken, 
   generateRefreshToken,
-  storeRefreshToken 
-} = require('./index');
-
-// Register a new user
-const password = 'userPassword123';
-const hashedPassword = hashPassword(password);
-
-// Save user to database with hashed password
-const newUser = {
-  email: 'user@example.com',
-  password: hashedPassword,
-  role: 'user'
-};
-
-// Login authentication
-const loginPassword = 'userPassword123';
-const isValidPassword = comparePassword(loginPassword, hashedPassword);
-
-if (isValidPassword) {
-  const user = { id: 'user123', email: 'user@example.com', role: 'user' };
-  
-  // Generate tokens
-  const accessToken = generateAccessToken(user);
-  const refreshToken = generateRefreshToken(user);
-  
-  // Store refresh token in database
-  await storeRefreshToken(user.id, refreshToken);
-  
-  console.log('Login successful!');
-}
+  storeRefreshToken,
+  authMiddleware,
+  authorizeRoles,
+  authorizePermissions
+} = authHelper;
 ```
 
-### 3. Express Middleware Usage
+### 2. Initialize Database Connection
+
+```javascript
+// Connect to your MongoDB database
+await connectDB('mongodb://localhost:27017/your-app-database');
+```
+
+### 3. Integrate with Your Express App
 
 ```javascript
 const express = require('express');
-const { authMiddleware, authorizeRoles, authorizePermissions } = require('./index');
+const authHelper = require('auth-helper-advanced');
 
 const app = express();
+app.use(express.json());
 
-// Protected route - requires valid JWT token
-app.get('/profile', authMiddleware, (req, res) => {
-  res.json({ 
-    message: 'Welcome to your profile',
-    user: req.user 
-  });
+// Initialize database
+authHelper.connectDB('mongodb://localhost:27017/your-app');
+
+// Your authentication routes
+app.post('/register', async (req, res) => {
+  const { email, password, role = 'user' } = req.body;
+  const hashedPassword = authHelper.hashPassword(password);
+  
+  // Save user to your database
+  // const user = await User.create({ email, password: hashedPassword, role });
+  
+  res.json({ message: 'User registered successfully' });
 });
 
-// Admin-only route
-app.get('/admin/dashboard', 
-  authMiddleware, 
-  authorizeRoles('admin'), 
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  
+  // Fetch user from your database
+  // const user = await User.findOne({ email });
+  
+  if (authHelper.comparePassword(password, user.password)) {
+    const accessToken = authHelper.generateAccessToken(user);
+    const refreshToken = authHelper.generateRefreshToken(user);
+    
+    await authHelper.storeRefreshToken(user.id, refreshToken);
+    
+    res.json({ accessToken, refreshToken });
+  } else {
+    res.status(401).json({ error: 'Invalid credentials' });
+  }
+});
+
+// Protected routes using the middleware
+app.get('/profile', authHelper.authMiddleware, (req, res) => {
+  res.json({ user: req.user });
+});
+
+app.get('/admin', 
+  authHelper.authMiddleware, 
+  authHelper.authorizeRoles('admin'), 
   (req, res) => {
-    res.json({ message: 'Admin dashboard access granted' });
+    res.json({ message: 'Admin only content' });
   }
 );
 
-// Permission-based route
-app.get('/users', 
-  authMiddleware, 
-  authorizePermissions('read:user'), 
-  (req, res) => {
-    res.json({ message: 'User data retrieved' });
-  }
-);
+app.listen(3000);
 ```
 
-## 📚 API Reference
+## 🎨 Customizing Roles and Permissions
+
+The package comes with default roles, but you can customize them for your application:
+
+```javascript
+// In your application, after importing the package
+const authHelper = require('auth-helper-advanced');
+
+// Access and modify role permissions
+authHelper.rolePermissions.moderator = ['read:user', 'write:user', 'moderate:content'];
+authHelper.rolePermissions.editor = ['read:post', 'write:post', 'edit:post'];
+
+// Or completely override them
+Object.assign(authHelper.rolePermissions, {
+  super_admin: ['*'], // All permissions
+  admin: ['read:user', 'write:user', 'delete:user', 'manage:system'],
+  moderator: ['read:user', 'write:user', 'moderate:content'],
+  editor: ['read:post', 'write:post', 'edit:post'],
+  user: ['read:user', 'edit:profile'],
+  guest: ['read:public']
+});
+```
+
+## 🏗️ Package Structure
 
 ### Database Functions
 

@@ -41,6 +41,14 @@ function comparePassword(password, hash) {
   return bcrypt.compareSync(password, hash);
 }
 
+function verifyAccessToken(token) {
+  try {
+    return jwt.verify(token, ACCESS_SECRET);
+  } catch (error) {
+    return null;
+  }
+}
+
 module.exports = {
   generateAccessToken,
   generateRefreshToken,
@@ -48,5 +56,6 @@ module.exports = {
   verifyRefreshToken,
   revokeRefreshToken,
   hashPassword,
-  comparePassword
+  comparePassword,
+  verifyAccessToken
 };
